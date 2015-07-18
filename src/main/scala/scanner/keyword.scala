@@ -25,8 +25,7 @@ trait Keyword {
   def weight(keyword: String, text: String): Double = {
     val lcKeyword = keyword.toLowerCase
     val textWords = text.split(" ").toList
-    textWords.count(_.toLowerCase.contains(lcKeyword)) /
-      textWords.length
+    1.0 * textWords.count(_.toLowerCase.contains(lcKeyword)) / textWords.length
   }
 
   def weight(keywords: Seq[String], text: String): Double =

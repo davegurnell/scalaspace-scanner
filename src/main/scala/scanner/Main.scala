@@ -23,5 +23,5 @@ object Main extends App {
 
   val stats = groups.ranked
 
-  println(write(stats.map(_.value)))
+  println("var groups = " + write(stats.map(_.value)) + ";")
 }
