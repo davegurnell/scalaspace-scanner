@@ -3,6 +3,10 @@ package scanner
 import upickle.Js
 import upickle.default.Writer
 
+import java.util.Date
+
+import scala.concurrent.duration.Duration
+
 case class MeetupGroup(
   id: Int,
   name: String,
@@ -49,6 +53,17 @@ case class Category(
   id: Int,
   name: String,
   shortname: String
+)
+
+case class Response(results: Seq[Event])
+
+case class Event(
+  id: String,
+  name: String
+//  yes_rsvp_count: Option[Int],
+//  rsvp_limit: Option[Int],
+//  time: Duration,
+//  waitlist_count: Option[Int]
 )
 
 // case class GroupStats(
