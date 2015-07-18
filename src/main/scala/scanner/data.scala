@@ -34,10 +34,10 @@ object MeetupGroup {
     }
 
   implicit val ranking = Ranking[MeetupGroup] { group =>
-    (for {
-      keyword <- keywords
-      text    <- Seq(group.name, group.description)
-    } yield frequency(keyword, text)).sum
+    keywords.map { kw =>
+      frequency(kw, group.name) * 10 +
+      frequency(kw, group.description)
+    }.sum
   }
 }
 
