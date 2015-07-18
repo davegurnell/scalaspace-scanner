@@ -23,5 +23,5 @@ object Main extends App {
 
   val stats = groups.ranked
 
-  stats.foreach(println)
+  println(write(stats.map(_.value)))
 }

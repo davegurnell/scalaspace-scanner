@@ -1,8 +1,12 @@
 package scanner
 
+import upickle.Js
+import upickle.default.Writer
+
 case class MeetupGroup(
   id: Int,
   name: String,
+  urlname: String,
   link: String,
   city: String,
   country: String,
@@ -17,28 +21,22 @@ case class MeetupGroup(
 )
 
 object MeetupGroup {
-  private val keywords = Seq(
-    "scala",
-    "scalaz",
-    "scalajs",
-    "monad",
-    "functor",
-    "functional",
-    "lambda",
-    "closure"
-  )
-
-  private def frequency(word: String, text: String): Int =
-    text.split(" ").toList.count { w =>
-      w.toLowerCase.contains(word)
+  implicit val ranking: Ranking[MeetupGroup] =
+    Ranking[MeetupGroup] { group =>
+      Keyword.weight(Keyword.all, group.name) * 10 +
+      Keyword.weight(Keyword.all, group.description)
     }
 
-  implicit val ranking = Ranking[MeetupGroup] { group =>
-    keywords.map { kw =>
-      frequency(kw, group.name) * 10 +
-      frequency(kw, group.description)
-    }.sum
-  }
+  implicit val writer: Writer[MeetupGroup] =
+    Writer[MeetupGroup] { group =>
+      Js.Arr(
+        Js.Str(group.name),
+        Js.Str(group.urlname),
+        Js.Num(group.lat),
+        Js.Num(group.lon),
+        if(Keyword.exists(Keyword.core, group.name)) Js.True else Js.False
+      )
+    }
 }
 
 case class Organizer(
