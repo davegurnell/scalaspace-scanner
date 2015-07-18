@@ -22,6 +22,10 @@ trait Keyword {
     "closure"
   )
 
+  val naughty = Seq(
+    "clojure"
+  )
+
   def weight(keyword: String, text: String): Double = {
     val lcKeyword = keyword.toLowerCase
     val textWords = text.split(" ").toList

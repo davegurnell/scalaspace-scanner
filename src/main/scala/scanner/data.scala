@@ -28,7 +28,9 @@ object MeetupGroup {
   implicit val ranking: Ranking[MeetupGroup] =
     Ranking[MeetupGroup] { group =>
       Keyword.weight(Keyword.all, group.name) * 10 +
-      Keyword.weight(Keyword.all, group.description)
+      Keyword.weight(Keyword.all, group.description) +
+      Keyword.weight(Keyword.naughty, group.name) * -10 +
+      Keyword.weight(Keyword.naughty, group.description) * -1
     }
 
   implicit val writer: Writer[MeetupGroup] =
