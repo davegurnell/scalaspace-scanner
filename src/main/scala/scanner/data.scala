@@ -27,3 +27,10 @@ case class Category(
   name: String,
   shortname: String
 )
+
+case class GroupStats(
+  group: MeetupGroup,
+  termCount: Int
+) {
+  override def toString = s"${group.name} : $termCount"
+}

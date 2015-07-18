@@ -6,7 +6,6 @@ import dispatch.Defaults._
 import scala.concurrent._
 import scala.concurrent.duration._
 
-import upickle._
 import upickle.default._
 
 object Main extends App {
@@ -16,5 +15,11 @@ object Main extends App {
 
   val groups = read[Seq[MeetupGroup]](json)
 
-  groups.foreach(println)
+  def count(str: String): Int = str.split(" ").toList.count(w => w.toLowerCase.contains("scala"))
+
+  val stats = groups.map { g =>
+    GroupStats(g, count(g.description) + count(g.name))
+  }
+
+  stats.foreach(println)
 }
