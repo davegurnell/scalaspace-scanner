@@ -6,6 +6,7 @@ scalaVersion := "2.11.6"
 
 libraryDependencies ++= Seq(
   "net.databinder.dispatch" %% "dispatch-core" % "0.11.2",
-  "com.lihaoyi" %% "upickle" % "0.3.4"
+  "com.lihaoyi" %% "upickle" % "0.3.4",
+  "joda-time" % "joda-time" % "2.8.1"
 )
 
